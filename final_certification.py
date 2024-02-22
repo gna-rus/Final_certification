@@ -8,12 +8,12 @@ from selenium.webdriver.chrome.service import Service
 import subprocess
 
 #########
-result = subprocess.run("--help", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
-lst = result.stdout.split("\n") + result.stderr.split("\n")
-print(lst)
-
-a = subprocess.cell("exit 1", shell=True)
-print(a)
+# result = subprocess.run("--help", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
+# lst = result.stdout.split("\n") + result.stderr.split("\n")
+# print(lst)
+#
+# a = subprocess.cell("exit 1", shell=True)
+# print(a)
 
 #########
 
@@ -78,14 +78,21 @@ def test_step1(site_connect):
     x_selector1 = locators['LOCATOR_WORD_BLOCK']
     flag_text_blog = site_connect.find_element("xpath", x_selector1)
     site_connect.driver.implicitly_wait(data_site['sleep_time'])
-    assert flag_text_blog.text == "Blog"
+    assert flag_text_blog.text == "Blog", "Faile Test1 (Fine word Blog)"
 
 def test_step2(site_connect):
     """Проверка размера шрифта в заголовке открывшегося окна"""
     x_btn_about = locators['LOCATOR_BOTTOM_ABOUT']
     btn = site_connect.find_element("xpath", x_btn_about)
     btn.click()
-    x_text = locators['LOCATOR_LABEL_ABOUT_PAGE']
+
+    x_text = locators['LOCATOR_LABEL_ABOUT_PAGE'] # нахожу заголовок ABOUT PAGE
     label_about = site_connect.find_element("xpath", x_text)
+    site_connect.driver.implicitly_wait(data_site['sleep_time'])
     # возможно надо label_about.execute_script
-    print(label_about.text)
+    font_size_of_about_page = label_about.value_of_css_property('font-size')
+    
+    assert font_size_of_about_page == '32px', "Faile Test2 (Size of About page)"
+
+# 3em
+

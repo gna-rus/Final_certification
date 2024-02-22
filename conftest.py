@@ -1,7 +1,7 @@
 import functools
 
 import pytest
-from Task1_sem4 import Site
+from final_certification import Site
 import yaml
 import json
 import requests
