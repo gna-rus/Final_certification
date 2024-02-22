@@ -11,6 +11,10 @@ import subprocess
 result = subprocess.run("--help", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
 lst = result.stdout.split("\n") + result.stderr.split("\n")
 print(lst)
+
+a = subprocess.cell("exit 1", shell=True)
+print(a)
+
 #########
 
 with open("./data.yaml") as f:
