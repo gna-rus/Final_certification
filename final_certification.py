@@ -5,11 +5,13 @@ import yaml
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.firefox import GeckoDriverManager
-from webdriver_manager.chrome import ChromeDriverManager
-import json
-import requests
-from logger import log_all
+import subprocess
+
+#########
+result = subprocess.run("--help", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
+lst = result.stdout.split("\n") + result.stderr.split("\n")
+print(lst)
+#########
 
 with open("./data.yaml") as f:
     data_site = yaml.safe_load(f)
