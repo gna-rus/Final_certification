@@ -74,5 +74,12 @@ def test_step1(site_connect):
     site_connect.driver.implicitly_wait(data_site['sleep_time'])
     assert flag_text_blog.text == "Blog"
 
-# def test_step2(site_connect):
-#     """Проверка размера шрифта в заголовке открывшегося окна"""
+def test_step2(site_connect):
+    """Проверка размера шрифта в заголовке открывшегося окна"""
+    x_btn_about = locators['LOCATOR_BOTTOM_ABOUT']
+    btn = site_connect.find_element("xpath", x_btn_about)
+    btn.click()
+    x_text = locators['LOCATOR_LABEL_ABOUT_PAGE']
+    label_about = site_connect.find_element("xpath", x_text)
+    # возможно надо label_about.execute_script
+    print(label_about.text)
