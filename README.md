@@ -1,3 +1,3 @@
 # Final_certification
 
-sudo dpkg -i --force-depends google-chrome-stable_current_amd64.deb
+nikto -h https://test-stand.gb.ru/ -ssl -Tuning 4
