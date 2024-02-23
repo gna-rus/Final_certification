@@ -8,15 +8,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 import subprocess
 
-#########
-# result = subprocess.run("--help", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
-# lst = result.stdout.split("\n") + result.stderr.split("\n")
-# print(lst)
-#
-# a = subprocess.cell("exit 1", shell=True)
-# print(a)
-
-#########
 
 
 FORMAT = '{levelname:<8} - {asctime}. In modul "{name}", in line {lineno:03d}, funcName "{funcName}()" in {created} sec, message: {msg}'
@@ -110,6 +101,12 @@ def test_step2(site_connect):
     font_size_of_about_page = label_about.value_of_css_property('font-size')
 
     assert font_size_of_about_page == '32px', "Faile Test2 (Size of About page)"
+
+def test_step3(command_nikto):
+    """Тест на безопасность соединения"""
+
+    result = str(subprocess.run(command_nikto, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE))
+    assert '0 error(s)' in result
 
 
 
