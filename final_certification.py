@@ -80,8 +80,11 @@ def test_step_nikto(command_nikto):
 
     result = str(subprocess.run(command_nikto, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE))
     assert '0 error(s)' in result
+
+
 def test_step1(site_connect):
     """Проверка на вход в профиль при корректном пароле и логине"""
+    
     # Ищу слово Blog, которое высвечивается после успешном входе
     logger.info(f'Start test1')
     site_connect.registration_on_the_website()
@@ -91,8 +94,10 @@ def test_step1(site_connect):
 
     assert flag_text_blog.text == "Blog", "Faile Test1 (Fine word Blog)"
 
+
 def test_step2(site_connect):
     """Проверка размера шрифта в заголовке открывшегося окна"""
+    
     logger.info(f'Start test2')
     x_btn_about = locators['LOCATOR_BOTTOM_ABOUT']
     btn = site_connect.find_element("xpath", x_btn_about)
