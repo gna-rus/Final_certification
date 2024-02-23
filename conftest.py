@@ -14,3 +14,7 @@ def site_connect():
     site_instance = Site(testdata["browser"],testdata['addres'])
     yield site_instance
     site_instance.close()
+
+@pytest.fixture()
+def command_nikto():
+    return 'nikto -h https://test-stand.gb.ru/ -ssl -Tuning 4'
