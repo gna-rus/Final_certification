@@ -9,7 +9,6 @@ from selenium.webdriver.chrome.service import Service
 import subprocess
 
 
-
 FORMAT = '{levelname:<8} - {asctime}. In modul "{name}", in line {lineno:03d}, funcName "{funcName}()" in {created} sec, message: {msg}'
 logging.basicConfig(format=FORMAT, style='{',filename='project.log', filemode='w', level=logging.INFO) # сохранаяю результаты лоиггирования в отдельный файл
 logger = logging.getLogger('Final_certification')
@@ -76,15 +75,20 @@ class Site:
         logger.info(f'The end')
         self.driver.close()
 
+def test_step_nikto(command_nikto):
+    """Тест на безопасность соединения"""
 
+    result = str(subprocess.run(command_nikto, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE))
+    assert '0 error(s)' in result
 def test_step1(site_connect):
     """Проверка на вход в профиль при корректном пароле и логине"""
     # Ищу слово Blog, которое высвечивается после успешном входе
     logger.info(f'Start test1')
     site_connect.registration_on_the_website()
     x_selector1 = locators['LOCATOR_WORD_BLOCK']
-    flag_text_blog = site_connect.find_element("xpath", x_selector1)
     site_connect.driver.implicitly_wait(data_site['sleep_time'])
+    flag_text_blog = site_connect.find_element("xpath", x_selector1)
+
     assert flag_text_blog.text == "Blog", "Faile Test1 (Fine word Blog)"
 
 def test_step2(site_connect):
@@ -94,19 +98,17 @@ def test_step2(site_connect):
     btn = site_connect.find_element("xpath", x_btn_about)
     btn.click()
 
+    site_connect.driver.implicitly_wait(data_site['sleep_time'])
+
     x_text = locators['LOCATOR_LABEL_ABOUT_PAGE'] # нахожу заголовок ABOUT PAGE
     label_about = site_connect.find_element("xpath", x_text)
     site_connect.driver.implicitly_wait(data_site['sleep_time'])
-    # возможно надо label_about.execute_script
+
     font_size_of_about_page = label_about.value_of_css_property('font-size')
 
     assert font_size_of_about_page == '32px', "Faile Test2 (Size of About page)"
 
-def test_step3(command_nikto):
-    """Тест на безопасность соединения"""
 
-    result = str(subprocess.run(command_nikto, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE))
-    assert '0 error(s)' in result
 
 
 
